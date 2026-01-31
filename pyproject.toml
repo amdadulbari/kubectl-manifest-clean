@@ -1,0 +1,45 @@
+[build-system]
+requires = ["setuptools>=61", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "kubectl-manifest-clean"
+version = "0.1.0"
+description = "Make Kubernetes manifests deterministic and diff-friendly"
+readme = "README.md"
+license = { text = "Apache-2.0" }
+requires-python = ">=3.11"
+authors = [{ name = "kubectl-manifest-clean contributors" }]
+keywords = ["kubernetes", "kubectl", "krew", "manifest", "yaml", "gitops"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Software Development :: Libraries",
+]
+dependencies = [
+    "ruamel.yaml>=0.18.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "pyinstaller>=6.0",
+    "ruff>=0.1.0",
+]
+
+[project.scripts]
+kubectl-manifest-clean = "cmd.manifest_clean.main:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["cmd*", "pkg*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
