@@ -44,6 +44,6 @@ jobs:
         run: pip install ruff
 
       - name: Lint
-        run: ruff check cmd/ pkg/ tests/
+        run: ruff check entrypoint/ pkg/ tests/
       - name: Format check
-        run: ruff format --check cmd/ pkg/ tests/
+        run: ruff format --check entrypoint/ pkg/ tests/

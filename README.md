@@ -127,7 +127,7 @@ The binary is produced in `dist/kubectl-manifest-clean` (or `dist/kubectl-manife
 
 ## Repository layout
 
-- **`cmd/manifest_clean/`** – Entrypoint (template’s `cmd/plugin/`): `main.py` invokes the plugin.
+- **`entrypoint/manifest_clean/`** – Entrypoint (template’s `cmd/plugin/`): `main.py` invokes the plugin.
 - **`pkg/manifest_clean/`** – Plugin logic (template’s `pkg/plugin/`): `cli`, `normalize`, `io`, `diff`.
 - **`deploy/krew/`** – Krew plugin manifest (for krew-index).
 - **`doc/`** – Usage documentation (e.g. `doc/USAGE.md`).

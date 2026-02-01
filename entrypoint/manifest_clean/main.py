@@ -1,5 +1,5 @@
 """
-Entrypoint for kubectl-manifest-clean (cmd/ = template entrypoint).
+Entrypoint for kubectl-manifest-clean (entrypoint/ = template cmd/plugin).
 
 Delegates to pkg.manifest_clean.cli.main().
 """

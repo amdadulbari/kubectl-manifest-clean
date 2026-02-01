@@ -34,11 +34,11 @@ dev = [
 ]
 
 [project.scripts]
-kubectl-manifest-clean = "cmd.manifest_clean.main:main"
+kubectl-manifest-clean = "entrypoint.manifest_clean.main:main"
 
 [tool.setuptools.packages.find]
 where = ["."]
-include = ["cmd*", "pkg*"]
+include = ["entrypoint*", "pkg*"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

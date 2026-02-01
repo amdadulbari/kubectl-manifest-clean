@@ -1,4 +1,4 @@
-"""CLI logic for kubectl-manifest-clean (library in pkg/; entrypoint in cmd/)."""
+"""CLI logic for kubectl-manifest-clean (library in pkg/; entrypoint in entrypoint/)."""
 
 from __future__ import annotations
 
