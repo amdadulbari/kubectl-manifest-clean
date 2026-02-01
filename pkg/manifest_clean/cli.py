@@ -46,13 +46,13 @@ def run(
     *,
     fmt: str = "yaml",
     indent: int = 2,
-    drop_status: bool = False,
-    drop_managed_fields: bool = False,
-    drop_last_applied: bool = False,
-    drop_creation_timestamp: bool = False,
-    drop_resource_version: bool = False,
-    drop_uid: bool = False,
-    drop_generation: bool = False,
+    drop_status: bool = True,
+    drop_managed_fields: bool = True,
+    drop_last_applied: bool = True,
+    drop_creation_timestamp: bool = True,
+    drop_resource_version: bool = True,
+    drop_uid: bool = True,
+    drop_generation: bool = True,
     drop_empty: bool = False,
     sort_labels: bool = False,
     sort_annotations: bool = False,
@@ -219,32 +219,54 @@ def main() -> None:
         metavar="N",
         help="Indent size (default: 2)",
     )
-    parser.add_argument("--drop-status", action="store_true", help="Remove .status")
     parser.add_argument(
-        "--drop-managed-fields",
-        action="store_true",
-        help="Remove .metadata.managedFields",
+        "--no-drop-status",
+        action="store_false",
+        dest="drop_status",
+        default=True,
+        help="Keep .status (default: drop)",
     )
     parser.add_argument(
-        "--drop-last-applied",
-        action="store_true",
-        help="Remove annotation kubectl.kubernetes.io/last-applied-configuration",
+        "--no-drop-managed-fields",
+        action="store_false",
+        dest="drop_managed_fields",
+        default=True,
+        help="Keep .metadata.managedFields (default: drop)",
     )
     parser.add_argument(
-        "--drop-creation-timestamp",
-        action="store_true",
-        help="Remove .metadata.creationTimestamp",
+        "--no-drop-last-applied",
+        action="store_false",
+        dest="drop_last_applied",
+        default=True,
+        help="Keep annotation kubectl.kubernetes.io/last-applied-configuration (default: drop)",
     )
     parser.add_argument(
-        "--drop-resource-version",
-        action="store_true",
-        help="Remove .metadata.resourceVersion",
+        "--no-drop-creation-timestamp",
+        action="store_false",
+        dest="drop_creation_timestamp",
+        default=True,
+        help="Keep .metadata.creationTimestamp (default: drop)",
     )
-    parser.add_argument("--drop-uid", action="store_true", help="Remove .metadata.uid")
     parser.add_argument(
-        "--drop-generation",
-        action="store_true",
-        help="Remove .metadata.generation",
+        "--no-drop-resource-version",
+        action="store_false",
+        dest="drop_resource_version",
+        default=True,
+        help="Keep .metadata.resourceVersion (default: drop)",
+    )
+    parser.add_argument(
+        "--no-drop-uid",
+        action="store_false",
+        dest="drop_uid",
+        default=True,
+        help="Keep .metadata.uid (default: drop)",
+    )
+    parser.add_argument(
+        "--no-drop-generation",
+        action="store_false",
+        dest="drop_generation",
+        default=True,
+        help="Keep .metadata.generation (default: drop)",
     )
     parser.add_argument(
         "--drop-empty",

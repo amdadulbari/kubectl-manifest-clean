@@ -48,10 +48,16 @@ kubectl manifest-clean [PATH|-] [flags]
 
 ### Examples
 
-**Clean Helm output and drop common noisy fields:**
+**Clean running pod YAML (noisy fields dropped by default):**
 
 ```bash
-helm template myrelease ./chart | kubectl manifest-clean - --drop-status --drop-managed-fields --drop-last-applied
+kubectl get pod my-pod -o yaml | kubectl manifest-clean -
+```
+
+**Clean Helm output:**
+
+```bash
+helm template myrelease ./chart | kubectl manifest-clean -
 ```
 
 **Normalize a directory and overwrite files:**
@@ -80,17 +86,19 @@ kubectl manifest-clean ./deploy.yaml --format json --indent 4
 
 ### Flags
 
+**Defaults:** Status, managedFields, last-applied, creationTimestamp, resourceVersion, uid, and generation are **dropped by default**. Use `--no-drop-*` to keep any of them.
+
 | Flag | Description |
 |------|-------------|
 | `--format yaml\|json` | Output format (default: `yaml`) |
 | `--indent N` | Indent size (default: `2`) |
-| `--drop-status` | Remove `.status` |
-| `--drop-managed-fields` | Remove `.metadata.managedFields` |
-| `--drop-last-applied` | Remove annotation `kubectl.kubernetes.io/last-applied-configuration` |
-| `--drop-creation-timestamp` | Remove `.metadata.creationTimestamp` |
-| `--drop-resource-version` | Remove `.metadata.resourceVersion` |
-| `--drop-uid` | Remove `.metadata.uid` |
-| `--drop-generation` | Remove `.metadata.generation` |
+| `--no-drop-status` | Keep `.status` (default: drop) |
+| `--no-drop-managed-fields` | Keep `.metadata.managedFields` (default: drop) |
+| `--no-drop-last-applied` | Keep last-applied-configuration annotation (default: drop) |
+| `--no-drop-creation-timestamp` | Keep `.metadata.creationTimestamp` (default: drop) |
+| `--no-drop-resource-version` | Keep `.metadata.resourceVersion` (default: drop) |
+| `--no-drop-uid` | Keep `.metadata.uid` (default: drop) |
+| `--no-drop-generation` | Keep `.metadata.generation` (default: drop) |
 | `--drop-empty` | Recursively remove empty dict/list values |
 | `--sort-labels` | Sort `.metadata.labels` keys |
 | `--sort-annotations` | Sort `.metadata.annotations` keys |
