@@ -68,7 +68,10 @@ def prune_noisy_fields(
             del spec["ephemeralContainers"]
         if drop_dns_policy and "dnsPolicy" in spec:
             del spec["dnsPolicy"]
-        if drop_termination_grace_period_seconds and "terminationGracePeriodSeconds" in spec:
+        if (
+            drop_termination_grace_period_seconds
+            and "terminationGracePeriodSeconds" in spec
+        ):
             del spec["terminationGracePeriodSeconds"]
         if drop_revision_history_limit and "revisionHistoryLimit" in spec:
             del spec["revisionHistoryLimit"]
