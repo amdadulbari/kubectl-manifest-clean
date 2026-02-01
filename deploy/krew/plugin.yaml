@@ -1,13 +1,11 @@
-# Krew plugin manifest for kubectl-manifest-clean.
-# Submit to krew-index by copying this file to plugins/manifest-clean.yaml
-# and updating sha256 for each platform from the GitHub Release checksums.txt.
+
 apiVersion: krew.googlecontainertools.github.com/v1alpha2
 kind: Plugin
 metadata:
   name: manifest-clean
 spec:
   version: v1.0.0
-  shortDescription: Make Kubernetes manifests deterministic and diff-friendly
+  shortDescription: Sort and strip noise from Kubernetes manifests
   homepage: https://github.com/amdadulbari/kubectl-manifest-clean
   description: |
     Canonical sorting of keys, removal of noisy fields (status, managedFields,
