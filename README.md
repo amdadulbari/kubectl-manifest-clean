@@ -32,6 +32,19 @@ kubectl krew install --manifest=deploy/krew/plugin.yaml
 
 (Update `deploy/krew/plugin.yaml` with your repo URL and release checksums first.)
 
+**Uninstall and reinstall (Krew):**
+
+```bash
+# Uninstall
+kubectl krew uninstall manifest-clean
+
+# Reinstall (from krew-index once submitted)
+kubectl krew install manifest-clean
+
+# Or reinstall from local manifest
+kubectl krew install --manifest=deploy/krew/plugin.yaml
+```
+
 ### Direct download
 
 Download the binary for your platform from the [Releases](https://github.com/amdadulbari/kubectl-manifest-clean/releases) page and place it on your `PATH` as `kubectl-manifest-clean` (or `kubectl-manifest-clean.exe` on Windows).
