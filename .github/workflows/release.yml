@@ -93,12 +93,13 @@ jobs:
         run: |
           VERSION="${{ github.ref_name }}"
           mkdir -p release
-          find artifacts -type f \( -name "*.tar.gz" -o -name "*.zip" \) -exec cp {} release/ \;
+          find artifacts -type f \( -name "*.tar.gz" -o -name "*.zip" \) -exec cp -v {} release/ \;
           cd release
           for f in *.tar.gz *.zip; do
             [ -f "$f" ] && sha256sum "$f" >> checksums.txt
           done
           cat checksums.txt
+          echo "--- Release files ---"
           ls -la
 
       - name: Create Release
@@ -108,10 +109,7 @@ jobs:
           name: Release ${{ github.ref_name }}
           draft: false
           prerelease: false
-          files: |
-            release/*.tar.gz
-            release/*.zip
-            release/checksums.txt
+          files: release/*
           generate_release_notes: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
