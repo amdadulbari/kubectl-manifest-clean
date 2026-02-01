@@ -99,7 +99,7 @@ kubectl manifest-clean ./deploy.yaml --format json --indent 4
 
 ### Flags
 
-**Defaults:** Status, managedFields, last-applied, creationTimestamp, resourceVersion, uid, and generation are **dropped by default**. Use `--no-drop-*` to keep any of them.
+**Defaults:** Status, managedFields, last-applied, creationTimestamp, resourceVersion, uid, generation, ownerReferences, generateName, nodeName, ephemeralContainers, and empty dict/list are **dropped by default**. Use `--no-drop-*` to keep.
 
 | Flag | Description |
 |------|-------------|
@@ -112,7 +112,11 @@ kubectl manifest-clean ./deploy.yaml --format json --indent 4
 | `--no-drop-resource-version` | Keep `.metadata.resourceVersion` (default: drop) |
 | `--no-drop-uid` | Keep `.metadata.uid` (default: drop) |
 | `--no-drop-generation` | Keep `.metadata.generation` (default: drop) |
-| `--drop-empty` | Recursively remove empty dict/list values |
+| `--no-drop-owner-references` | Keep `.metadata.ownerReferences` (default: drop) |
+| `--no-drop-generate-name` | Keep `.metadata.generateName` (default: drop) |
+| `--no-drop-node-name` | Keep `spec.nodeName` (default: drop) |
+| `--no-drop-ephemeral-containers` | Keep `spec.ephemeralContainers` (default: drop) |
+| `--no-drop-empty` | Keep empty dict/list values (default: drop) |
 | `--sort-labels` | Sort `.metadata.labels` keys |
 | `--sort-annotations` | Sort `.metadata.annotations` keys |
 | `-w`, `--write` | Overwrite files in place (file/dir only) |

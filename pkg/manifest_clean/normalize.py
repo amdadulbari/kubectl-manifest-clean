@@ -22,6 +22,10 @@ def prune_noisy_fields(
     drop_resource_version: bool = False,
     drop_uid: bool = False,
     drop_generation: bool = False,
+    drop_owner_references: bool = False,
+    drop_generate_name: bool = False,
+    drop_node_name: bool = False,
+    drop_ephemeral_containers: bool = False,
 ) -> None:
     """Mutate obj in place, removing noisy fields (only on K8s-like objects)."""
     if not is_kubernetes_like(obj):
@@ -31,24 +35,32 @@ def prune_noisy_fields(
         del obj["status"]
 
     metadata = obj.get("metadata")
-    if not isinstance(metadata, dict):
-        return
+    if isinstance(metadata, dict):
+        if drop_managed_fields and "managedFields" in metadata:
+            del metadata["managedFields"]
+        if drop_creation_timestamp and "creationTimestamp" in metadata:
+            del metadata["creationTimestamp"]
+        if drop_resource_version and "resourceVersion" in metadata:
+            del metadata["resourceVersion"]
+        if drop_uid and "uid" in metadata:
+            del metadata["uid"]
+        if drop_generation and "generation" in metadata:
+            del metadata["generation"]
+        if drop_owner_references and "ownerReferences" in metadata:
+            del metadata["ownerReferences"]
+        if drop_generate_name and "generateName" in metadata:
+            del metadata["generateName"]
+        if drop_last_applied:
+            ann = metadata.get("annotations")
+            if isinstance(ann, dict) and LAST_APPLIED_KEY in ann:
+                del ann[LAST_APPLIED_KEY]
 
-    if drop_managed_fields and "managedFields" in metadata:
-        del metadata["managedFields"]
-    if drop_creation_timestamp and "creationTimestamp" in metadata:
-        del metadata["creationTimestamp"]
-    if drop_resource_version and "resourceVersion" in metadata:
-        del metadata["resourceVersion"]
-    if drop_uid and "uid" in metadata:
-        del metadata["uid"]
-    if drop_generation and "generation" in metadata:
-        del metadata["generation"]
-
-    if drop_last_applied:
-        ann = metadata.get("annotations")
-        if isinstance(ann, dict) and LAST_APPLIED_KEY in ann:
-            del ann[LAST_APPLIED_KEY]
+    spec = obj.get("spec")
+    if isinstance(spec, dict):
+        if drop_node_name and "nodeName" in spec:
+            del spec["nodeName"]
+        if drop_ephemeral_containers and "ephemeralContainers" in spec:
+            del spec["ephemeralContainers"]
 
 
 def drop_empty_recursive(obj: Any) -> Any:
@@ -132,7 +144,11 @@ def normalize_document(
     drop_resource_version: bool = False,
     drop_uid: bool = False,
     drop_generation: bool = False,
-    drop_empty: bool = False,
+    drop_owner_references: bool = False,
+    drop_generate_name: bool = False,
+    drop_node_name: bool = False,
+    drop_ephemeral_containers: bool = False,
+    drop_empty: bool = True,
     sort_labels: bool = False,
     sort_annotations: bool = False,
 ) -> dict[str, Any]:
@@ -153,6 +169,10 @@ def normalize_document(
         drop_resource_version=drop_resource_version,
         drop_uid=drop_uid,
         drop_generation=drop_generation,
+        drop_owner_references=drop_owner_references,
+        drop_generate_name=drop_generate_name,
+        drop_node_name=drop_node_name,
+        drop_ephemeral_containers=drop_ephemeral_containers,
     )
 
     if drop_empty:

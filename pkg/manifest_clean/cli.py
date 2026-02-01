@@ -53,7 +53,11 @@ def run(
     drop_resource_version: bool = True,
     drop_uid: bool = True,
     drop_generation: bool = True,
-    drop_empty: bool = False,
+    drop_owner_references: bool = True,
+    drop_generate_name: bool = True,
+    drop_node_name: bool = True,
+    drop_ephemeral_containers: bool = True,
+    drop_empty: bool = True,
     sort_labels: bool = False,
     sort_annotations: bool = False,
     write: bool = False,
@@ -72,6 +76,10 @@ def run(
         drop_resource_version=drop_resource_version,
         drop_uid=drop_uid,
         drop_generation=drop_generation,
+        drop_owner_references=drop_owner_references,
+        drop_generate_name=drop_generate_name,
+        drop_node_name=drop_node_name,
+        drop_ephemeral_containers=drop_ephemeral_containers,
         drop_empty=drop_empty,
         sort_labels=sort_labels,
         sort_annotations=sort_annotations,
@@ -269,9 +277,39 @@ def main() -> None:
         help="Keep .metadata.generation (default: drop)",
     )
     parser.add_argument(
-        "--drop-empty",
-        action="store_true",
-        help="Recursively remove empty dict/list values",
+        "--no-drop-owner-references",
+        action="store_false",
+        dest="drop_owner_references",
+        default=True,
+        help="Keep .metadata.ownerReferences (default: drop)",
+    )
+    parser.add_argument(
+        "--no-drop-generate-name",
+        action="store_false",
+        dest="drop_generate_name",
+        default=True,
+        help="Keep .metadata.generateName (default: drop)",
+    )
+    parser.add_argument(
+        "--no-drop-node-name",
+        action="store_false",
+        dest="drop_node_name",
+        default=True,
+        help="Keep spec.nodeName (default: drop)",
+    )
+    parser.add_argument(
+        "--no-drop-ephemeral-containers",
+        action="store_false",
+        dest="drop_ephemeral_containers",
+        default=True,
+        help="Keep spec.ephemeralContainers (default: drop)",
+    )
+    parser.add_argument(
+        "--no-drop-empty",
+        action="store_false",
+        dest="drop_empty",
+        default=True,
+        help="Keep empty dict/list values (default: drop)",
     )
     parser.add_argument(
         "--sort-labels",
@@ -327,6 +365,10 @@ def main() -> None:
         drop_resource_version=args.drop_resource_version,
         drop_uid=args.drop_uid,
         drop_generation=args.drop_generation,
+        drop_owner_references=args.drop_owner_references,
+        drop_generate_name=args.drop_generate_name,
+        drop_node_name=args.drop_node_name,
+        drop_ephemeral_containers=args.drop_ephemeral_containers,
         drop_empty=args.drop_empty,
         sort_labels=args.sort_labels,
         sort_annotations=args.sort_annotations,
