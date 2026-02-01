@@ -25,7 +25,7 @@ spec:
           os: linux
           arch: amd64
       uri: https://github.com/amdadulbari/kubectl-manifest-clean/releases/download/v1.0.0/kubectl-manifest-clean_v1.0.0_linux_amd64.tar.gz
-      sha256: PLACEHOLDER_REPLACE_WITH_RELEASE_CHECKSUM
+      sha256: 2ab46c6d9a7fb579d65f6c0f6d3b0bf4d4fb4f2ca9995d5b6ba31caabdb81e60
       files:
         - from: kubectl-manifest-clean
           to: .
@@ -37,7 +37,7 @@ spec:
           os: linux
           arch: arm64
       uri: https://github.com/amdadulbari/kubectl-manifest-clean/releases/download/v1.0.0/kubectl-manifest-clean_v1.0.0_linux_arm64.tar.gz
-      sha256: PLACEHOLDER_REPLACE_WITH_RELEASE_CHECKSUM
+      sha256: 386f36b4d03212da04ed344c78280f9dcd870ee7e55f1dd61f7deea44905bd60
       files:
         - from: kubectl-manifest-clean
           to: .
@@ -50,7 +50,7 @@ spec:
           os: darwin
           arch: arm64
       uri: https://github.com/amdadulbari/kubectl-manifest-clean/releases/download/v1.0.0/kubectl-manifest-clean_v1.0.0_darwin_arm64.tar.gz
-      sha256: PLACEHOLDER_REPLACE_WITH_RELEASE_CHECKSUM
+      sha256: 4bd255eb823afe3a0bef9c382b4ea819c5bb0e5bb41ae2eafe0834e5d0f616f5
       files:
         - from: kubectl-manifest-clean
           to: .
@@ -62,7 +62,7 @@ spec:
           os: windows
           arch: amd64
       uri: https://github.com/amdadulbari/kubectl-manifest-clean/releases/download/v1.0.0/kubectl-manifest-clean_v1.0.0_windows_amd64.zip
-      sha256: PLACEHOLDER_REPLACE_WITH_RELEASE_CHECKSUM
+      sha256: 2a992e0896c10bfc4353b4ed933a6d54a08a735543cf8a927eb45284cb516a75
       files:
         - from: kubectl-manifest-clean.exe
           to: .
