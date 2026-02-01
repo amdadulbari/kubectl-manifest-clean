@@ -1,7 +1,5 @@
 """Tests for manifest_clean.diff."""
 
-import pytest
-
 from pkg.manifest_clean.diff import text_to_lines, unified_diff
 
 

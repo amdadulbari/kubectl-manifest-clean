@@ -1,7 +1,5 @@
 """Tests for manifest_clean.normalize."""
 
-import pytest
-
 from pkg.manifest_clean.normalize import (
     LAST_APPLIED_KEY,
     drop_empty_in_place,

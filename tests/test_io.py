@@ -1,9 +1,8 @@
 """Tests for manifest_clean.io."""
 
 from io import StringIO
-from pathlib import Path
 
-import pytest
+import pytest  # used for pytest.raises
 
 from pkg.manifest_clean.io import (
     iter_paths,

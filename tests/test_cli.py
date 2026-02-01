@@ -1,7 +1,5 @@
 """Tests for manifest_clean.cli (run() and integration)."""
 
-import pytest
-
 from pkg.manifest_clean.cli import run
 
 
