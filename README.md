@@ -116,7 +116,12 @@ kubectl manifest-clean ./deploy.yaml --format json --indent 4
 | `--no-drop-generate-name` | Keep `.metadata.generateName` (default: drop) |
 | `--no-drop-node-name` | Keep `spec.nodeName` (default: drop) |
 | `--no-drop-ephemeral-containers` | Keep `spec.ephemeralContainers` (default: drop) |
-| `--no-drop-empty` | Keep empty dict/list values (default: drop) |
+| `--no-drop-dns-policy` | Keep `spec.dnsPolicy` (default: drop) |
+| `--no-drop-termination-grace-period-seconds` | Keep `spec.terminationGracePeriodSeconds` (default: drop) |
+| `--no-drop-revision-history-limit` | Keep `spec.revisionHistoryLimit` (default: drop) |
+| `--no-drop-progress-deadline-seconds` | Keep `spec.progressDeadlineSeconds` (default: drop) |
+| `--no-drop-termination-message` | Keep `containers[].terminationMessagePath/Policy` (default: drop) |
+| `--no-drop-empty` | Keep empty dict/list values (default: drop; also removes `securityContext: {}`) |
 | `--sort-labels` | Sort `.metadata.labels` keys |
 | `--sort-annotations` | Sort `.metadata.annotations` keys |
 | `-w`, `--write` | Overwrite files in place (file/dir only) |

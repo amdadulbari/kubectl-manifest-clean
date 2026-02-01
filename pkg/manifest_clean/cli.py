@@ -57,6 +57,11 @@ def run(
     drop_generate_name: bool = True,
     drop_node_name: bool = True,
     drop_ephemeral_containers: bool = True,
+    drop_dns_policy: bool = True,
+    drop_termination_grace_period_seconds: bool = True,
+    drop_revision_history_limit: bool = True,
+    drop_progress_deadline_seconds: bool = True,
+    drop_termination_message: bool = True,
     drop_empty: bool = True,
     sort_labels: bool = False,
     sort_annotations: bool = False,
@@ -80,6 +85,11 @@ def run(
         drop_generate_name=drop_generate_name,
         drop_node_name=drop_node_name,
         drop_ephemeral_containers=drop_ephemeral_containers,
+        drop_dns_policy=drop_dns_policy,
+        drop_termination_grace_period_seconds=drop_termination_grace_period_seconds,
+        drop_revision_history_limit=drop_revision_history_limit,
+        drop_progress_deadline_seconds=drop_progress_deadline_seconds,
+        drop_termination_message=drop_termination_message,
         drop_empty=drop_empty,
         sort_labels=sort_labels,
         sort_annotations=sort_annotations,
@@ -305,6 +315,41 @@ def main() -> None:
         help="Keep spec.ephemeralContainers (default: drop)",
     )
     parser.add_argument(
+        "--no-drop-dns-policy",
+        action="store_false",
+        dest="drop_dns_policy",
+        default=True,
+        help="Keep spec.dnsPolicy (default: drop)",
+    )
+    parser.add_argument(
+        "--no-drop-termination-grace-period-seconds",
+        action="store_false",
+        dest="drop_termination_grace_period_seconds",
+        default=True,
+        help="Keep spec.terminationGracePeriodSeconds (default: drop)",
+    )
+    parser.add_argument(
+        "--no-drop-revision-history-limit",
+        action="store_false",
+        dest="drop_revision_history_limit",
+        default=True,
+        help="Keep spec.revisionHistoryLimit (default: drop)",
+    )
+    parser.add_argument(
+        "--no-drop-progress-deadline-seconds",
+        action="store_false",
+        dest="drop_progress_deadline_seconds",
+        default=True,
+        help="Keep spec.progressDeadlineSeconds (default: drop)",
+    )
+    parser.add_argument(
+        "--no-drop-termination-message",
+        action="store_false",
+        dest="drop_termination_message",
+        default=True,
+        help="Keep containers[].terminationMessagePath/Policy (default: drop)",
+    )
+    parser.add_argument(
         "--no-drop-empty",
         action="store_false",
         dest="drop_empty",
@@ -369,6 +414,11 @@ def main() -> None:
         drop_generate_name=args.drop_generate_name,
         drop_node_name=args.drop_node_name,
         drop_ephemeral_containers=args.drop_ephemeral_containers,
+        drop_dns_policy=args.drop_dns_policy,
+        drop_termination_grace_period_seconds=args.drop_termination_grace_period_seconds,
+        drop_revision_history_limit=args.drop_revision_history_limit,
+        drop_progress_deadline_seconds=args.drop_progress_deadline_seconds,
+        drop_termination_message=args.drop_termination_message,
         drop_empty=args.drop_empty,
         sort_labels=args.sort_labels,
         sort_annotations=args.sort_annotations,

@@ -26,6 +26,11 @@ def prune_noisy_fields(
     drop_generate_name: bool = False,
     drop_node_name: bool = False,
     drop_ephemeral_containers: bool = False,
+    drop_dns_policy: bool = False,
+    drop_termination_grace_period_seconds: bool = False,
+    drop_revision_history_limit: bool = False,
+    drop_progress_deadline_seconds: bool = False,
+    drop_termination_message: bool = False,
 ) -> None:
     """Mutate obj in place, removing noisy fields (only on K8s-like objects)."""
     if not is_kubernetes_like(obj):
@@ -61,6 +66,20 @@ def prune_noisy_fields(
             del spec["nodeName"]
         if drop_ephemeral_containers and "ephemeralContainers" in spec:
             del spec["ephemeralContainers"]
+        if drop_dns_policy and "dnsPolicy" in spec:
+            del spec["dnsPolicy"]
+        if drop_termination_grace_period_seconds and "terminationGracePeriodSeconds" in spec:
+            del spec["terminationGracePeriodSeconds"]
+        if drop_revision_history_limit and "revisionHistoryLimit" in spec:
+            del spec["revisionHistoryLimit"]
+        if drop_progress_deadline_seconds and "progressDeadlineSeconds" in spec:
+            del spec["progressDeadlineSeconds"]
+        if drop_termination_message:
+            for key in ("containers", "initContainers", "ephemeralContainers"):
+                for c in spec.get(key) or []:
+                    if isinstance(c, dict):
+                        c.pop("terminationMessagePath", None)
+                        c.pop("terminationMessagePolicy", None)
 
 
 def drop_empty_recursive(obj: Any) -> Any:
@@ -148,6 +167,11 @@ def normalize_document(
     drop_generate_name: bool = False,
     drop_node_name: bool = False,
     drop_ephemeral_containers: bool = False,
+    drop_dns_policy: bool = False,
+    drop_termination_grace_period_seconds: bool = False,
+    drop_revision_history_limit: bool = False,
+    drop_progress_deadline_seconds: bool = False,
+    drop_termination_message: bool = False,
     drop_empty: bool = True,
     sort_labels: bool = False,
     sort_annotations: bool = False,
@@ -173,6 +197,11 @@ def normalize_document(
         drop_generate_name=drop_generate_name,
         drop_node_name=drop_node_name,
         drop_ephemeral_containers=drop_ephemeral_containers,
+        drop_dns_policy=drop_dns_policy,
+        drop_termination_grace_period_seconds=drop_termination_grace_period_seconds,
+        drop_revision_history_limit=drop_revision_history_limit,
+        drop_progress_deadline_seconds=drop_progress_deadline_seconds,
+        drop_termination_message=drop_termination_message,
     )
 
     if drop_empty:
