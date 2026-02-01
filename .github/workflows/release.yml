@@ -57,12 +57,16 @@ jobs:
         if: matrix.platform == 'windows'
         run: |
           $v = "${{ github.ref_name }}"
+          $zipName = "kubectl-manifest-clean_${v}_windows_amd64.zip"
+          $zipPath = Join-Path $env:GITHUB_WORKSPACE $zipName
           New-Item -ItemType Directory -Path staging -Force
           Copy-Item dist/kubectl-manifest-clean.exe staging/
           Copy-Item LICENSE staging/
           Push-Location staging
-          Compress-Archive -Path * -DestinationPath "../kubectl-manifest-clean_$v_windows_amd64.zip"
+          Compress-Archive -Path * -DestinationPath $zipPath -Force
           Pop-Location
+          if (-not (Test-Path $zipPath)) { throw "Zip not created: $zipPath" }
+          Get-Item $zipPath
 
       - name: Upload artifact (Linux/macOS)
         if: matrix.platform != 'windows'
@@ -93,7 +97,16 @@ jobs:
         run: |
           VERSION="${{ github.ref_name }}"
           mkdir -p release
-          find artifacts -type f \( -name "*.tar.gz" -o -name "*.zip" \) -exec cp -v {} release/ \;
+          echo "--- Artifact dirs ---"
+          ls -la artifacts/
+          for dir in artifacts/*/; do
+            echo "Copying from $dir"
+            for f in "$dir"*.tar.gz "$dir"*.zip; do
+              [ -f "$f" ] && cp -v "$f" release/
+            done
+          done
+          echo "--- Release files before checksums ---"
+          ls -la release/
           cd release
           for f in *.tar.gz *.zip; do
             [ -f "$f" ] && sha256sum "$f" >> checksums.txt
@@ -101,6 +114,7 @@ jobs:
           cat checksums.txt
           echo "--- Release files ---"
           ls -la
+          [ -f "kubectl-manifest-clean_${VERSION}_windows_amd64.zip" ] || { echo "ERROR: Windows zip missing"; exit 1; }
 
       - name: Create Release
         uses: softprops/action-gh-release@v2
