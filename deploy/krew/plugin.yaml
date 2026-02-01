@@ -1,15 +1,14 @@
 # Krew plugin manifest for kubectl-manifest-clean.
 # Submit to krew-index by copying this file to plugins/manifest-clean.yaml
-# and updating version, uri, and sha256 for each platform from the GitHub Release.
-# Replace YOUR_ORG with your GitHub org or username.
+# and updating sha256 for each platform from the GitHub Release checksums.txt.
 apiVersion: krew.googlecontainertools.github.com/v1alpha2
 kind: Plugin
 metadata:
   name: manifest-clean
 spec:
-  version: v0.1.0
+  version: v1.0.0
   shortDescription: Make Kubernetes manifests deterministic and diff-friendly
-  homepage: https://github.com/YOUR_ORG/kubectl-manifest-clean
+  homepage: https://github.com/amdadulbari/kubectl-manifest-clean
   description: |
     Canonical sorting of keys, removal of noisy fields (status, managedFields,
     runtime metadata), and optional empty map/list pruning. Use for GitOps
@@ -25,7 +24,7 @@ spec:
         matchLabels:
           os: linux
           arch: amd64
-      uri: https://github.com/YOUR_ORG/kubectl-manifest-clean/releases/download/v0.1.0/kubectl-manifest-clean_v0.1.0_linux_amd64.tar.gz
+      uri: https://github.com/amdadulbari/kubectl-manifest-clean/releases/download/v1.0.0/kubectl-manifest-clean_v1.0.0_linux_amd64.tar.gz
       sha256: PLACEHOLDER_REPLACE_WITH_RELEASE_CHECKSUM
       files:
         - from: kubectl-manifest-clean
@@ -37,7 +36,7 @@ spec:
         matchLabels:
           os: linux
           arch: arm64
-      uri: https://github.com/YOUR_ORG/kubectl-manifest-clean/releases/download/v0.1.0/kubectl-manifest-clean_v0.1.0_linux_arm64.tar.gz
+      uri: https://github.com/amdadulbari/kubectl-manifest-clean/releases/download/v1.0.0/kubectl-manifest-clean_v1.0.0_linux_arm64.tar.gz
       sha256: PLACEHOLDER_REPLACE_WITH_RELEASE_CHECKSUM
       files:
         - from: kubectl-manifest-clean
@@ -49,7 +48,7 @@ spec:
         matchLabels:
           os: darwin
           arch: amd64
-      uri: https://github.com/YOUR_ORG/kubectl-manifest-clean/releases/download/v0.1.0/kubectl-manifest-clean_v0.1.0_darwin_amd64.tar.gz
+      uri: https://github.com/amdadulbari/kubectl-manifest-clean/releases/download/v1.0.0/kubectl-manifest-clean_v1.0.0_darwin_amd64.tar.gz
       sha256: PLACEHOLDER_REPLACE_WITH_RELEASE_CHECKSUM
       files:
         - from: kubectl-manifest-clean
@@ -61,7 +60,7 @@ spec:
         matchLabels:
           os: darwin
           arch: arm64
-      uri: https://github.com/YOUR_ORG/kubectl-manifest-clean/releases/download/v0.1.0/kubectl-manifest-clean_v0.1.0_darwin_arm64.tar.gz
+      uri: https://github.com/amdadulbari/kubectl-manifest-clean/releases/download/v1.0.0/kubectl-manifest-clean_v1.0.0_darwin_arm64.tar.gz
       sha256: PLACEHOLDER_REPLACE_WITH_RELEASE_CHECKSUM
       files:
         - from: kubectl-manifest-clean
@@ -73,7 +72,7 @@ spec:
         matchLabels:
           os: windows
           arch: amd64
-      uri: https://github.com/YOUR_ORG/kubectl-manifest-clean/releases/download/v0.1.0/kubectl-manifest-clean_v0.1.0_windows_amd64.zip
+      uri: https://github.com/amdadulbari/kubectl-manifest-clean/releases/download/v1.0.0/kubectl-manifest-clean_v1.0.0_windows_amd64.zip
       sha256: PLACEHOLDER_REPLACE_WITH_RELEASE_CHECKSUM
       files:
         - from: kubectl-manifest-clean.exe

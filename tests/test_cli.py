@@ -87,4 +87,4 @@ def test_run_write_rejected_for_stdin(capsys):
 def test_run_version_in_help():
     from pkg.manifest_clean import __version__
 
-    assert __version__ == "0.1.0"
+    assert __version__ == "1.0.0"

@@ -34,7 +34,7 @@ kubectl krew install --manifest=deploy/krew/plugin.yaml
 
 ### Direct download
 
-Download the binary for your platform from the [Releases](https://github.com/YOUR_ORG/kubectl-manifest-clean/releases) page and place it on your `PATH` as `kubectl-manifest-clean` (or `kubectl-manifest-clean.exe` on Windows).
+Download the binary for your platform from the [Releases](https://github.com/amdadulbari/kubectl-manifest-clean/releases) page and place it on your `PATH` as `kubectl-manifest-clean` (or `kubectl-manifest-clean.exe` on Windows).
 
 ## Usage
 
@@ -110,7 +110,7 @@ kubectl manifest-clean ./deploy.yaml --format json --indent 4
 - **Python 3.11+** and `pip` are required.
 
 ```bash
-git clone https://github.com/YOUR_ORG/kubectl-manifest-clean.git
+git clone https://github.com/amdadulbari/kubectl-manifest-clean.git
 cd kubectl-manifest-clean
 pip install -e ".[dev]"
 kubectl manifest-clean --help
@@ -120,10 +120,32 @@ kubectl manifest-clean --help
 
 ```bash
 pip install pyinstaller
-pyinstaller -F -n kubectl-manifest-clean -m manifest_clean.cli
+pyinstaller -F -n kubectl-manifest-clean -m entrypoint.manifest_clean.main
 ```
 
 The binary is produced in `dist/kubectl-manifest-clean` (or `dist/kubectl-manifest-clean.exe` on Windows). Run this on each target OS/arch for cross-platform releases; the GitHub Actions workflow does this on tag push.
+
+## Creating a release
+
+Releases are built automatically when you push a **tag** matching `v*.*.*` (e.g. `v1.0.0`).
+
+**1. Create and push the tag:**
+
+```bash
+# Ensure all changes are committed and pushed
+git status
+git push origin main
+
+# Create an annotated tag (use the version you set in pyproject.toml / plugin.yaml)
+git tag -a v1.0.0 -m "Release v1.0.0"
+
+# Push the tag to trigger the release workflow
+git push origin v1.0.0
+```
+
+**2. GitHub Actions** will build binaries for Linux (amd64, arm64), macOS (amd64, arm64), and Windows (amd64), then create a **GitHub Release** with the archives and a `checksums.txt` file.
+
+**3. For Krew:** Copy the SHA256 hashes from the release’s `checksums.txt` into `deploy/krew/plugin.yaml` (replace each `PLACEHOLDER_REPLACE_WITH_RELEASE_CHECKSUM`), then submit that manifest to [krew-index](https://github.com/kubernetes-sigs/krew-index) (e.g. as `plugins/manifest-clean.yaml`).
 
 ## Repository layout
 
