@@ -57,14 +57,15 @@ def drop_empty_recursive(obj: Any) -> Any:
     Do NOT remove 0, False, or empty strings.
     """
     if isinstance(obj, dict):
-        return {
-            k: drop_empty_recursive(v)
-            for k, v in obj.items()
-            if not (
-                (isinstance(v, dict) and len(v) == 0)
-                or (isinstance(v, list) and len(v) == 0)
-            )
-        }
+        result = {}
+        for k, v in obj.items():
+            v_clean = drop_empty_recursive(v)
+            if (isinstance(v_clean, dict) and len(v_clean) == 0) or (
+                isinstance(v_clean, list) and len(v_clean) == 0
+            ):
+                continue
+            result[k] = v_clean
+        return result
     if isinstance(obj, list):
         return [drop_empty_recursive(item) for item in obj]
     return obj
