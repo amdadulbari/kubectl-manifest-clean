@@ -173,9 +173,7 @@ def run(
         return (0, files_changed, docs_changed)
 
     if summary and (files_changed or docs_changed):
-        sys.stderr.write(
-            f"Files changed: {files_changed}, documents: {docs_changed}\n"
-        )
+        sys.stderr.write(f"Files changed: {files_changed}, documents: {docs_changed}\n")
 
     if write:
         for path in paths:

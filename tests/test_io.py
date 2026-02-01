@@ -69,7 +69,9 @@ def test_load_documents_from_path_invalid_yaml_raises(tmp_path):
     f.write_text("not: valid: yaml: here\n")
     with pytest.raises(Exception) as exc_info:
         list(load_documents_from_path(f))
-    assert "bad.yaml" in str(exc_info.value) or "document" in str(exc_info.value).lower()
+    assert (
+        "bad.yaml" in str(exc_info.value) or "document" in str(exc_info.value).lower()
+    )
 
 
 def test_load_documents_from_path_non_mapping_doc_raises(tmp_path):

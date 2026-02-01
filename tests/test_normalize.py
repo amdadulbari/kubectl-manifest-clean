@@ -110,7 +110,11 @@ def test_sort_labels_and_annotations():
     doc = {
         "apiVersion": "v1",
         "kind": "Pod",
-        "metadata": {"name": "x", "labels": {"z": "1", "a": "2"}, "annotations": {"y": "1", "b": "2"}},
+        "metadata": {
+            "name": "x",
+            "labels": {"z": "1", "a": "2"},
+            "annotations": {"y": "1", "b": "2"},
+        },
     }
     sort_labels_and_annotations(doc)
     assert list(doc["metadata"]["labels"].keys()) == ["a", "z"]
@@ -120,4 +124,6 @@ def test_sort_labels_and_annotations():
 def test_sort_labels_and_annotations_skips_non_k8s():
     doc = {"metadata": {"labels": {"z": "1"}}}
     sort_labels_and_annotations(doc)
-    assert list(doc["metadata"]["labels"].keys()) == ["z"]  # unchanged order for non-k8s
+    assert list(doc["metadata"]["labels"].keys()) == [
+        "z"
+    ]  # unchanged order for non-k8s

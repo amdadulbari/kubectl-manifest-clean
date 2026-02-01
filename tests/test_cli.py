@@ -13,6 +13,7 @@ def test_run_missing_path_returns_2(capsys):
 def test_run_no_path_no_files_returns_2(capsys):
     # path_arg is a dir with no yaml files, or we pass a dir that exists but has no *.yaml
     import tempfile
+
     with tempfile.TemporaryDirectory() as d:
         code, fc, dc = run(d)
     assert code == 2
@@ -35,8 +36,7 @@ def test_run_single_file_normalizes(capsys, tmp_path):
 def test_run_with_drop_status(capsys, tmp_path):
     f = tmp_path / "pod.yaml"
     f.write_text(
-        "apiVersion: v1\nkind: Pod\nmetadata:\n  name: x\n"
-        "status:\n  phase: Running\n"
+        "apiVersion: v1\nkind: Pod\nmetadata:\n  name: x\nstatus:\n  phase: Running\n"
     )
     code, fc, dc = run(str(f), drop_status=True)
     assert code == 0
@@ -86,4 +86,5 @@ def test_run_write_rejected_for_stdin(capsys):
 
 def test_run_version_in_help():
     from pkg.manifest_clean import __version__
+
     assert __version__ == "0.1.0"
