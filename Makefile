@@ -18,9 +18,9 @@ lint:
 
 # Build single-file binary with PyInstaller (current OS only)
 # Example for each OS (run on that OS):
-#   pyinstaller -F -n kubectl-manifest-clean -m entrypoint.manifest_clean.main
+#   pyinstaller -F -n kubectl-manifest-clean -p . entrypoint/manifest_clean/main.py
 bin:
-	pyinstaller -F -n kubectl-manifest-clean -m entrypoint.manifest_clean.main
+	pyinstaller -F -n kubectl-manifest-clean -p . entrypoint/manifest_clean/main.py
 
 build: bin
 

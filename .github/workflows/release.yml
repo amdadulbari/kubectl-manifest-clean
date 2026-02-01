@@ -42,7 +42,7 @@ jobs:
           pip install -e ".[dev]"
 
       - name: Build with PyInstaller
-        run: pyinstaller -F -n kubectl-manifest-clean -m entrypoint.manifest_clean.main
+        run: pyinstaller -F -n kubectl-manifest-clean -p . entrypoint/manifest_clean/main.py
 
       - name: Prepare archive (Linux/macOS)
         if: matrix.platform != 'windows'

@@ -120,7 +120,7 @@ kubectl manifest-clean --help
 
 ```bash
 pip install pyinstaller
-pyinstaller -F -n kubectl-manifest-clean -m entrypoint.manifest_clean.main
+pyinstaller -F -n kubectl-manifest-clean -p . entrypoint/manifest_clean/main.py
 ```
 
 The binary is produced in `dist/kubectl-manifest-clean` (or `dist/kubectl-manifest-clean.exe` on Windows). Run this on each target OS/arch for cross-platform releases; the GitHub Actions workflow does this on tag push.
